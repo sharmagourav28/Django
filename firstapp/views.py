@@ -32,3 +32,10 @@ def stn(request):
 def elect(request):
     products = {"list": ["TV", "Laptop", "Mobile"]}
     return render(request, "myhtml.html", products)
+
+
+def result(request):
+    name = request.POST.get("name")
+    address = request.POST.get("address")
+    age = request.POST.get("age")
+    return HttpResponse(name + "   " + address + "    " + str(age))
