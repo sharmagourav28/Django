@@ -24,6 +24,7 @@ urlpatterns = [
     path("admin/", admin.site.urls),
     path("", views.home, name="home page"),
     path("special/", views.special, name="special page"),
+    path("voting/<str:name>/<int:age>/", views.vote, name="voting page"),
 ]
 
 # server gets automaticallt updated

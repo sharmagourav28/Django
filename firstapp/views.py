@@ -1,5 +1,6 @@
 from django.shortcuts import render
-from django.http import HttpResponse
+from django.http import HttpResponse, JsonResponse
+
 
 # Create your views here.
 
@@ -10,3 +11,10 @@ def home(request):
 
 def special(request):
     return HttpResponse("<b><u><i>Welcome to Special page</b></u></i>")
+
+
+def vote(request, name, age):
+    if age < 18:
+        return JsonResponse({"message": "You cannot vote"})
+    else:
+        return JsonResponse({"message": "Most welcome for voting"})
