@@ -25,6 +25,8 @@ urlpatterns = [
     path("", views.home, name="home page"),
     path("special/", views.special, name="special page"),
     path("voting/<str:name>/<int:age>/", views.vote, name="voting page"),
+    path("Stationery/", views.stn, name="Stationery page"),
+    path("Electronics/", views.elect, name="Electronics page"),
 ]
 
 # server gets automaticallt updated

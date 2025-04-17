@@ -10,7 +10,7 @@ from django.http import HttpResponse, JsonResponse
 
 
 def home(request):
-    return render(request, "myhtml.html")
+    return render(request, "home.html")
 
 
 def special(request):
@@ -22,3 +22,13 @@ def vote(request, name, age):
         return JsonResponse({"message": "You cannot vote"})
     else:
         return JsonResponse({"message": "Most welcome for voting"})
+
+
+def stn(request):
+    products = {"list": ["Pen", "Notebook", "Marker", "Pencil"]}
+    return render(request, "myhtml.html", products)
+
+
+def elect(request):
+    products = {"list": ["TV", "Laptop", "Mobile"]}
+    return render(request, "myhtml.html", products)
