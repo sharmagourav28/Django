@@ -8,6 +8,16 @@ from django.http import HttpResponse, JsonResponse
 # def home(request):
 #     return HttpResponse("Welcome to first Django app")
 
+import mysql.connector as m  # type: ignore
+
+# database connectivity
+
+mydatabase = m.connect(
+    host="localhost", user="root", password="Gourav@2806", database="pythondb1"
+)
+query = "insert into person(name,address,age) values(%s,%s,%s)"  #  must be "s"
+cursor = mydatabase.cursor()
+
 
 def home(request):
     return render(request, "home.html")
@@ -38,4 +48,6 @@ def result(request):
     name = request.POST.get("name")
     address = request.POST.get("address")
     age = request.POST.get("age")
-    return HttpResponse(name + "   " + address + "    " + str(age))
+    cursor.execute(query, [name, address, age])
+    mydatabase.commit()
+    return HttpResponse()
