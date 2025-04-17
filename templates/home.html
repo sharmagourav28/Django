@@ -1,20 +1,19 @@
-<!-- <h1> Welcome to Customer's Shopping Mart</h1>
-<br><br>
+<h1> Welcome to Customer's Shopping Mart</h1>
+<!-- <br><br>
 <a href="http://127.0.0.1:8000/Stationery">Go to Stationery department</a>
 <br><br><br>
 <a href="http://127.0.0.1:8000/Electronics">Go to Electronics department</a> -->
 
-<form action="go" method="post">
-    {% csrf_token %}
-    Enter name:
-    <input type="text" name="name">
-    <br>
-    Enter address:
-    <input type="text" name="address">
-    <br>
-    Enter age:
-    <input type="number" name="age">
-    <br><br>
-    <input type="submit" value="Submit">
-</form>
+
+<br><br>
+<a href="http://127.0.0.1:8000/insertdata">Insert the data</a>
+<br><br><br>
+<a href="http://127.0.0.1:8000/displaydata">Display data</a>
+
 <!-- {% csrf_token %}     it is dynamic-->
+
+<!-- CREATE TABLE product (
+    productname VARCHAR(20),
+    price INT,
+    category VARCHAR(20)
+); -->

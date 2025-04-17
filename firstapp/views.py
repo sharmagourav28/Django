@@ -15,7 +15,9 @@ import mysql.connector as m  # type: ignore
 mydatabase = m.connect(
     host="localhost", user="root", password="Gourav@2806", database="pythondb1"
 )
-query = "insert into person(name,address,age) values(%s,%s,%s)"  #  must be "s"
+query = (
+    "insert into product(productname,price,category) values(%s,%s,%s)"  #  must be "s"
+)
 cursor = mydatabase.cursor()
 
 
@@ -45,9 +47,27 @@ def elect(request):
 
 
 def result(request):
-    name = request.POST.get("name")
-    address = request.POST.get("address")
-    age = request.POST.get("age")
-    cursor.execute(query, [name, address, age])
+    product = request.POST.get("Product")
+    price = request.POST.get("Price")
+    category = request.POST.get("category")
+    cursor.execute(query, [product, price, category])
     mydatabase.commit()
     return HttpResponse()
+
+
+def insertdata(request):
+
+    return render(request, "form.html")
+
+
+def displaydata(request):
+    # Connect to MySQL database
+    with m.connect(
+        host="localhost", user="root", password="Gourav@2806", database="pythondb1"
+    ) as mydatabase:
+        cursor = mydatabase.cursor()
+        query = "SELECT * FROM product where category ='shirt'"
+        cursor.execute(query)
+        result = cursor.fetchall()
+
+    return render(request, "display.html", {"result": result})

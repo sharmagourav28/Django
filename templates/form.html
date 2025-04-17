@@ -1,0 +1,13 @@
+<form action="/go" method="post">
+    {% csrf_token %}
+    Enter Product:
+    <input type="text" name="Product">
+    <br>
+    Enter Price:
+    <input type="number" name="Price">
+    <br>
+    Enter category:
+    <input type="text" name="category">
+    <br><br>
+    <input type="submit" value="Submit">
+</form>

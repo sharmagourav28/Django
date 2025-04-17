@@ -24,9 +24,11 @@ urlpatterns = [
     path("admin/", admin.site.urls),
     path("", views.home, name="home page"),
     path("special/", views.special, name="special page"),
-    path("voting/<str:name>/<int:age>/", views.vote, name="voting page"),
-    path("Stationery/", views.stn, name="Stationery page"),
-    path("Electronics/", views.elect, name="Electronics page"),
+    # path("voting/<str:name>/<int:age>/", views.vote, name="voting page"),
+    # path("Stationery/", views.stn, name="Stationery page"),
+    # path("Electronics/", views.elect, name="Electronics page"),
+    path("insertdata/", views.insertdata, name="insert value"),
+    path("displaydata/", views.displaydata, name="Display value"),
     path("go", views.result, name="view page"),
 ]
 
