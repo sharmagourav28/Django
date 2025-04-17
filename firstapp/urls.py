@@ -20,7 +20,11 @@ from . import views  # we have to place . means current folder
 from django.contrib import admin
 from django.urls import path
 
-urlpatterns = [path("admin/", admin.site.urls), path("", views.home, name="home page")]
+urlpatterns = [
+    path("admin/", admin.site.urls),
+    path("", views.home, name="home page"),
+    path("special/", views.special, name="special page"),
+]
 
 # server gets automaticallt updated
 # http://127.0.0.1:8000/  default port number is 8000

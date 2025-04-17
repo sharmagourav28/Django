@@ -6,3 +6,7 @@ from django.http import HttpResponse
 
 def home(request):
     return HttpResponse("Welcome to first Django app")
+
+
+def special(request):
+    return HttpResponse("<b><u><i>Welcome to Special page</b></u></i>")
