@@ -5,8 +5,12 @@ from django.http import HttpResponse, JsonResponse
 # Create your views here.
 
 
+# def home(request):
+#     return HttpResponse("Welcome to first Django app")
+
+
 def home(request):
-    return HttpResponse("Welcome to first Django app")
+    return render(request, "myhtml.html")
 
 
 def special(request):
