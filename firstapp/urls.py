@@ -15,8 +15,12 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 
-from django import views
+# we got error on this line
+from . import views  # we have to place . means current folder
 from django.contrib import admin
 from django.urls import path
 
 urlpatterns = [path("admin/", admin.site.urls), path("", views.home, name="home page")]
+
+# server gets automaticallt updated
+# http://127.0.0.1:8000/  default port number is 8000
