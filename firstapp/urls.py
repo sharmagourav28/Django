@@ -39,9 +39,16 @@ from django.urls import path
 from . import views
 
 urlpatterns = [
+    # path('admin/', admin.site.urls),
+    # path('',views.home_view,name='home page'),
+    # path('login',views.login_view,name='login page'),
+    # path('go',views.result18,name='result page')
+
+
+    #header and footer
     path('admin/', admin.site.urls),
-    path('',views.home_view,name='home page'),
-    path('login',views.login_view,name='login page'),
-    path('go',views.result18,name='result page')
+    path('',views.home,name="home page"),
+    path('national',views.national,name='national page'),
+    path('international',views.international,name='international page')
 ]
 

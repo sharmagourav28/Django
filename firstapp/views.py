@@ -88,17 +88,28 @@ conn = getconnection()
 
 
 #18/april
-def home_view(request):
-    return render(request, "home18.html")
+# def home_view(request):
+#     return render(request, "home18.html")
 
-def login_view(request):
-    return render(request,"login.html")
+# def login_view(request):
+#     return render(request,"login.html")
 
-#18/april
-def result18(request):
-    uname = request.POST.get('uname')
-    password = request.POST.get('password')
-    if (uname == 'scott' and password == 'tiger'):
-        return render(request, "welcome.html", {'username': uname})
-    else:
-        return render(request, "error.html")
+# #18/april
+# def result18(request):
+#     uname = request.POST.get('uname')
+#     password = request.POST.get('password')
+#     if (uname == 'scott' and password == 'tiger'):
+#         return render(request, "welcome.html", {'username': uname})
+#     else:
+#         return render(request, "error.html")
+
+
+
+def home(request):
+    return render(request, "home18_1.html")
+
+def national(request):
+    return render(request, "National.html")
+
+def international(request):
+    return render(request, "International.html")
