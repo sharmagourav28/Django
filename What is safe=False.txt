@@ -1,0 +1,27 @@
+By default, Django expects the data to be a dictionary (object in JSON).
+
+If you pass a list or any non-dict, Django will raise an error unless you set safe=False.
+
+Django will raise following error:
+
+In order to allow non-dict objects to be serialized set the "safe parameter to False".
+
+so what exactly happens when we say "safe=False" ?
+
+JsonResponse is a subclass of HttpResponse, but it automatically converts Python objects to JSON.
+
+class JsonResponse(HttpResponse):
+
+
+ It checks the type of the data (if safe=True)
+Inside the __init__() method of JsonResponse, Django has this logic:
+
+	if safe and not isinstance(data, dict):
+    		raise TypeError(
+        'In order to allow non-dict objects to be serialized set the safe parameter to False.')
+
+So:
+
+If safe=True (default) and you pass a list or string or int, Django raises an error.
+
+If safe=False, internally, Django skips a safety check and uses json.dumps() to convert it to JSON format.

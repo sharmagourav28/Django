@@ -3,6 +3,21 @@ from django.http import HttpResponse, JsonResponse
 
 from django.shortcuts import render
 from .models import Employee
+# from .SQLAlchemy_models import session, Student # type: ignore
+from .SQLAlchemy_models_py import session,Student
+
+
+def student_view(request):
+    # Insert a new student
+    new_student = Student(name="Rohit", age=25)
+    session.add(new_student)
+    session.commit()
+
+    # Fetch all students
+    students = session.query(Student).all()
+    result = [{"id": s.id, "name": s.name, "age": s.age} for s in students]
+
+    return JsonResponse(result,safe=False)
 
 
 def index(request):

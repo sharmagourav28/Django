@@ -60,5 +60,7 @@ urlpatterns = [
     # path('shopping',views.shop,name='shop'),
     # path('viewCart',views.viewCart,name='view cart'),
     # path('payment',views.payment,name='view cart')
+    # sqlalcemy
+    path('student/', views.student_view),
 ]
 
