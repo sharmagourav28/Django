@@ -105,11 +105,49 @@ conn = getconnection()
 
 
 
+# def home(request):
+#     return render(request, "home18_1.html")
+
+# def national(request):
+#     return render(request, "National.html")
+
+# def international(request):
+#     return render(request, "International.html")
+
 def home(request):
-    return render(request, "home18_1.html")
+    return render(request,'home_11.html')
+    
+def shop(request):
+    return render(request, 'shop.html')
 
-def national(request):
-    return render(request, "National.html")
+def addCart(request):
+    items = request.POST.getlist('product')
+    if request.session.get("prodlist"):
+        mylist=request.session.get("prodlist")
+        mylist.extend(items)
+        request.session['prodlist']=mylist
+    else:
+        request.session['prodlist']=items
+    return render(request, 'home_11.html')
+    
 
-def international(request):
-    return render(request, "International.html")
+def viewCart(request):
+    if request.session.get("prodlist"):
+        mylist=request.session.get("prodlist")
+        return render(request, 'viewCart.html',{'itemlist':mylist})
+    else:
+        return render(request,'Empty.html')
+
+def payment(request):
+    # as if we receive payment here
+
+    del request.session['prodlist']  # remove the key 'prodlist' and its associated value from the session. 
+
+    """
+	or you can delete entire session 
+     request.session.flush()  # Deletes the session data and the session ID
+    """
+
+    return render(request, 'welcome1.html')
+
+   

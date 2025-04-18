@@ -1,0 +1,11 @@
+while running application where session is used, if you get following error:
+
+django.db.utils.OperationalError: no such table: django_session
+
+go to terminal window and give following command:
+
+python manage.py migrate
+
+make sure it works properly.
+
+now restart the server and run the application.

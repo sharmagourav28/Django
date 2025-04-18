@@ -1,0 +1,8 @@
+<form action="addCart" method = "post">
+    {% csrf_token %}
+    <input type="checkbox" name="product" value="laptop" />laptop<br />
+    <input type="checkbox" name="product" value="mouse" />mouse<br />
+    <input type="checkbox" name="product" value="sound_system" />sound_system<br />
+    <input type="checkbox" name="product" value="speaker" />speaker<br />
+    <input type="submit" value="add to cart" />
+    </form>

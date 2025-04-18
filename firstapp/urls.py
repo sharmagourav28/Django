@@ -46,9 +46,18 @@ urlpatterns = [
 
 
     #header and footer
-    path('admin/', admin.site.urls),
+    # path('admin/', admin.site.urls),
+    # path('',views.home,name="home page"),
+    # path('national',views.national,name='national page'),
+    # path('international',views.international,name='international page')
+
+
+    #Session
+     path('admin/', admin.site.urls),
     path('',views.home,name="home page"),
-    path('national',views.national,name='national page'),
-    path('international',views.international,name='international page')
+    path('addCart',views.addCart,name="add cart"),
+    path('shopping',views.shop,name='shop'),
+    path('viewCart',views.viewCart,name='view cart'),
+    path('payment',views.payment,name='view cart')
 ]
 
