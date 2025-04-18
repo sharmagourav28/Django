@@ -1,8 +1,18 @@
 from django.shortcuts import render
 from django.http import HttpResponse, JsonResponse
-from .db import getconnection
 
-conn = getconnection()
+from django.shortcuts import render
+from .models import Employee
+
+
+def index(request):
+    employee_list = Employee.objects.all()
+    context = {'employee_list': employee_list}
+    return render(request, 'firstapp/index.html', context=context)
+
+# from .db import getconnection
+
+# conn = getconnection()
 
 # Create your views here.
 # def home(request):
@@ -113,41 +123,43 @@ conn = getconnection()
 
 # def international(request):
 #     return render(request, "International.html")
+#
+# def home(request):
+#     return render(request,'home_11.html')
+#
+# def shop(request):
+#     return render(request, 'shop.html')
+#
+# def addCart(request):
+#     items = request.POST.getlist('product')
+#     if request.session.get("prodlist"):
+#         mylist=request.session.get("prodlist")
+#         mylist.extend(items)
+#         request.session['prodlist']=mylist
+#     else:
+#         request.session['prodlist']=items
+#     return render(request, 'home_11.html')
+#
+#
+# def viewCart(request):
+#     if request.session.get("prodlist"):
+#         mylist=request.session.get("prodlist")
+#         return render(request, 'viewCart.html',{'itemlist':mylist})
+#     else:
+#         return render(request,'Empty.html')
+#
+# def payment(request):
+#     # as if we receive payment here
+#
+#     del request.session['prodlist']  # remove the key 'prodlist' and its associated value from the session.
+#
+#     """
+# 	or you can delete entire session
+#      request.session.flush()  # Deletes the session data and the session ID
+#     """
+#
+#     return render(request, 'welcome1.html')
 
-def home(request):
-    return render(request,'home_11.html')
-    
-def shop(request):
-    return render(request, 'shop.html')
 
-def addCart(request):
-    items = request.POST.getlist('product')
-    if request.session.get("prodlist"):
-        mylist=request.session.get("prodlist")
-        mylist.extend(items)
-        request.session['prodlist']=mylist
-    else:
-        request.session['prodlist']=items
-    return render(request, 'home_11.html')
-    
-
-def viewCart(request):
-    if request.session.get("prodlist"):
-        mylist=request.session.get("prodlist")
-        return render(request, 'viewCart.html',{'itemlist':mylist})
-    else:
-        return render(request,'Empty.html')
-
-def payment(request):
-    # as if we receive payment here
-
-    del request.session['prodlist']  # remove the key 'prodlist' and its associated value from the session. 
-
-    """
-	or you can delete entire session 
-     request.session.flush()  # Deletes the session data and the session ID
-    """
-
-    return render(request, 'welcome1.html')
 
    

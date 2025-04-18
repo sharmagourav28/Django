@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+
+<head>
+    <title>Employee Database</title>
+</head>
+
+<body>
+    <h2>Employee Database</h2>
+
+    {% if employee_list %}
+    <ul>
+        {% for employee in employee_list %}
+        <li> <b> {{employee.name}} </b> | {{employee.department}} </li>
+        {% endfor %}
+    </ul>
+    {% else %}
+    <p>No employee entered in the database. </p>
+    {% endif %}
+</body>
+
+</html>

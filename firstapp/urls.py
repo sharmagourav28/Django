@@ -54,10 +54,11 @@ urlpatterns = [
 
     #Session
      path('admin/', admin.site.urls),
-    path('',views.home,name="home page"),
-    path('addCart',views.addCart,name="add cart"),
-    path('shopping',views.shop,name='shop'),
-    path('viewCart',views.viewCart,name='view cart'),
-    path('payment',views.payment,name='view cart')
+    # path('',views.home,name="home page"),
+    path('', views.index, name='index'),
+    # path('addCart',views.addCart,name="add cart"),
+    # path('shopping',views.shop,name='shop'),
+    # path('viewCart',views.viewCart,name='view cart'),
+    # path('payment',views.payment,name='view cart')
 ]
 
