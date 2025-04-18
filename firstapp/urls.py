@@ -20,17 +20,28 @@ from . import views  # we have to place . means current folder
 from django.contrib import admin
 from django.urls import path
 
-urlpatterns = [
-    path("admin/", admin.site.urls),
-    path("", views.home, name="home page"),
-    path("special/", views.special, name="special page"),
-    # path("voting/<str:name>/<int:age>/", views.vote, name="voting page"),
-    # path("Stationery/", views.stn, name="Stationery page"),
-    # path("Electronics/", views.elect, name="Electronics page"),
-    path("insertdata/", views.insertdata, name="insert value"),
-    path("displaydata/", views.displaydata, name="Display value"),
-    path("go", views.result, name="view page"),
-]
+# urlpatterns = [
+#     path("admin/", admin.site.urls),
+#     path("", views.home, name="home page"),
+#     path("special/", views.special, name="special page"),
+#     # path("voting/<str:name>/<int:age>/", views.vote, name="voting page"),
+#     # path("Stationery/", views.stn, name="Stationery page"),
+#     # path("Electronics/", views.elect, name="Electronics page"),
+#     path("insertdata/", views.insertdata, name="insert value"),
+#     path("displaydata/", views.displaydata, name="Display value"),
+#     path("go", views.result, name="view page"),
+# ]
 
 # server gets automaticallt updated
 # http://127.0.0.1:8000/  default port number is 8000
+from django.contrib import admin
+from django.urls import path
+from . import views
+
+urlpatterns = [
+    path('admin/', admin.site.urls),
+    path('',views.home_view,name='home page'),
+    path('login',views.login_view,name='login page'),
+    path('go',views.result18,name='result page')
+]
+

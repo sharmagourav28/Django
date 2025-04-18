@@ -1,0 +1,10 @@
+<form action="go" method="post">
+    {% csrf_token %}
+    Enter user_name:
+    <input type="text" name="uname">
+    <br>
+    Enter password:
+    <input type="password" name="password">
+    <br><br>
+    <input type="submit" value=Submit>
+</form>
