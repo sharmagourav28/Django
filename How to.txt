@@ -1,0 +1,269 @@
+Add the name of the newly created app home to the INSTALLED_APPS list in settings.py.
+
+myproject/settings.py
+
+INSTALLED_APPS = [
+    'django.contrib.admin',
+    'django.contrib.auth',
+    'django.contrib.contenttypes',
+    'django.contrib.sessions',
+    'django.contrib.messages',
+    'django.contrib.staticfiles',
+    'firstapp',
+]
+
+
+
+Design Model
+
+A Model is basically a design for the database. Here, we will create a model for a simple database of employees. This is specified in the "models.py" file inside "firstapp".
+
+
+from django.db import models
+
+#must to be derived from models
+class Employee(models.Model):  # has to be derived from "Model"
+    name = models.CharField(max_length=250) # charfield is class 
+    department = models.CharField(max_length=250)
+
+    def __str__(self):
+        return self.name+"    "+self.department
+
+
+
+
+By default Django uses "SQLite" database. You can check it by opening "settings.py" file:
+
+
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': BASE_DIR / 'db.sqlite3',
+    }
+}
+
+But we can make Django use other database as a default database e.g. MySQL. For that first you need to 
+
+install mysqlclient package
+
+Before installing the mysqlclient package, let's understand what mysqlclient is and why we use. The mysqlclient is the Python interface to MySQL that allows Python project to connect to the MySQL server.
+
+So it is necessary to install mysqlclient package to establish the connection between the MySQL and Django. To install, use the following command in the working directory.
+
+pip install mysqlclient  
+
+now you need to replace the above "DATABASES" section like this:
+
+
+DATABASES = {  
+    'default': {  
+        'ENGINE': 'django.db.backends.mysql',  
+        'NAME': 'pythondb1',  
+        'USER': 'root',  
+        'PASSWORD': 'root',  
+        'HOST': '127.0.0.1',  
+        'PORT': '3306',  
+        'OPTIONS': {  
+            'init_command': "SET sql_mode='STRICT_TRANS_TABLES'"  
+        }  
+    }  
+}  
+
+
+Now, run this command
+
+(myenv) PS E:\work\myenv\myproject> python manage.py makemigrations firstapp
+
+
+You should get a similar output
+
+migrations for "firstapp"
+	firstapp/migrations/000_1/initial.py
+		create model Employee
+
+(myenv) PS E:\work\myenv\myproject>
+
+
+
+The makemigrations command tells Django that some changes have been made to the specified model and to store the changes as a migration. A migration is how Django stores changes in the models and thus the database schema. Also, file is created home/migrations/0001_initial.py, where you can check the stored changes. You are not required to read this every time as it is just a reference to the changes that will be made, although you can edit them in case you want the manually make some changes.
+
+You can try running this command to see the SQL query required to create the changes specified by the migrations to the database mentioned in the project settings.
+
+give following command:
+
+python manage.py sqlmigrate firstapp 0001
+
+you'll get the output:
+
+CREATE TABLE `firstapp_employee` (`id` bigint AUTO_INCREMENT NOT NULL PRIMARY KEY, `name` varchar(250) NOT NULL, `department` varchar(250) NOT NULL);
+
+
+Also, one is not supposed to run this command every time. It is just to see SQL command for the migration file.
+
+
+Migrate
+
+Next, run the migrate command to actually make changes in the database ie. apply the migrations.
+
+give following command:
+
+python manage.py migrate
+
+
+The migrate command creates any necessary database tables for all the apps listed in the INSTALLED_APPS setting as per the database settings mentioned in the settings.py file. 
+
+make sure above "python manage.py migrate" command works successfully.
+
+
+Entering Data
+
+Django Shell
+
+Django provides a free API using which one can use the interactive python shell and explore the Database API.
+
+Invoke the python shell using this command:
+
+python manage.py shell
+
+	Once inside the shell, we can read the data and enter/edit data as well.
+
+
+>>> from firstapp.models import Employee
+>>> Employee.objects.all()
+<QuerySet []>
+>>> e1 = Employee(name="Rohit", department="accounts")
+>>> e1.save()
+>>> Employee.objects.all()   # it will show you one record
+>>> exit()
+
+
+
+Django Admin
+
+Django has its own inbuilt admin interface that helps the site managers, staff, clients to manage the data on the website. This is not intended to be used by the site visitors.
+
+First, create a user who can log in to the admin site using this command. Then enter the desired username, email and password. For testing purposes, one can use a dummy mail too.
+
+
+give the following command:
+
+python manage.py createsuperuser
+
+
+Username (leave blank to use 'sriram'): admin
+Email address: nitin.javastudent@gmail.com
+Password:
+Password (again):
+Superuser created successfully.
+
+
+Now, start the development server using the command.
+
+python manage.py runserver
+
+
+
+Then, navigate to the local domain of the django admin site on a web browser, ie. http://localhost:8000/admin/ and you should see the admin’s login screen.
+
+
+Enter the username and password entered while creating the superuser and then you should see the Django admin index page.
+
+
+But, we cannot see our Employee data here.
+
+For that, we need to register our Employee objects with the admin interface. Edit the firstapp/admin.py file as follows.
+
+firstapp/admin.py
+
+
+from django.contrib import admin
+from .models import Employee
+
+admin.site.register(Employee)
+
+
+
+On saving the file, the server will reload automatically and now we can see our Employee data in the admin interface.
+
+
+Create Template
+
+Next, create an HTML template to view the data as a site visitor. Create appropriate folders and add this to
+
+
+
+E:\work\myenv\myproject\templates\firstapp
+					index.html
+
+
+<!DOCTYPE html>
+
+<head>
+    <title>Employee Database</title>
+</head>
+
+<body>
+    <h2>Employee Database</h2>
+
+    {% if employee_list %}
+    <ul>
+        {% for employee in employee_list %}
+        <li> <b> {{employee.name}} </b> | {{employee.department}} </li>
+        {% endfor %}
+    </ul>
+    {% else %}
+    <p>No employee entered in the database. </p>
+    {% endif %}
+</body>
+
+</html>
+
+
+
+Views and URLs
+
+Next, create a view in firstapp/views.py to show the data in the database to the user.
+
+
+
+from django.shortcuts import render
+from .models import Employee
+
+
+def index(request):
+    employee_list = Employee.objects.all()
+    context = {'employee_list': employee_list}
+    return render(request, 'firstapp/index.html', context=context)
+
+
+
+
+Here, we fetch all the objects and pass them to the context. The context is a dictionary mapping template variable names to Python objects.
+
+Create a file firstapp/urls.py with the following content:
+
+from django.contrib import admin
+from django.urls import path
+from . import views
+
+urlpatterns = [
+    path('admin/', admin.site.urls),
+    path('',views.index,name="index page")
+]
+
+
+
+inside "myproject/urls.py"
+
+
+from django.contrib import admin
+from django.urls import path,include
+
+urlpatterns = [
+    path('admin/', admin.site.urls),
+    path('', include('firstapp.urls'))
+]
+
+
+Now start the server using python manage.py runserver and we can see our data as per the format specified in the template.
+
